@@ -53,10 +53,7 @@ const Navbar = () => {
       name: country.name,
     });
 
-    toast.success("Location Updated", {
-      description: `Prices will now be shown for ${country.name} (${
-        country.currencies?.[0] || "AED"
-      })`,
+    toast.success(`Location Updated to ${country.name} (${country.currencies?.[0] || "AED"})`, {
       duration: 3000,
     });
   };
@@ -196,7 +193,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navbar */}
-      <div className="md:hidden bg-black/30 backdrop-blur-2xl text-white fixed z-50 !py- w-full">
+      <div className="md:hidden bg-black/30 backdrop-blur-2xl text-white fixed z-50 !py-4 w-full">
         <div className="grid grid-cols-3 items-center justify-between">
           <div className="flex items-center justify-start">
             <CountryDropdown
@@ -207,18 +204,9 @@ const Navbar = () => {
             />
           </div>
           <Link href="/" className="flex items-center justify-center">
-            <Image className="w-30" src={FA_logo} alt="Brand_logo" />
+            <Image className="w-25" src={FA_logo} alt="Brand_logo" />
           </Link>
           <div className="flex items-center justify-end gap-5 !pr-5">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsSearchOpen(true)}
-              className="hover:text-red-500 hover:bg-transparent cursor-pointer group transition-colors"
-            >
-              <SearchIcon className="w-4 h-4 group-hover:w-5" />
-              <span className="ml-1 font-light text-xs">Search</span>
-            </Button>
             <Link href="/bag" className="flex items-center">
               <ShoppingBag className="w-4 h-4 font-light" />
             </Link>

@@ -159,7 +159,7 @@ const CountryDropdownComponent = (
   );
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} className="rounded-none" onOpenChange={setOpen}>
       <PopoverTrigger
         ref={ref}
         className={triggerClasses}
@@ -206,13 +206,13 @@ const CountryDropdownComponent = (
                     onSelect={() => handleSelect(option)}
                   >
                     <div className="flex flex-grow w-0 space-x-2 overflow-hidden">
-                      <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
+                      <div className="inline-flex items-center justify-center w-4 h-4 shrink-0 overflow-hidden rounded-full">
                         <CircleFlag
                           countryCode={option.alpha2.toLowerCase()}
-                          height={20}
+                          height={10}
                         />
                       </div>
-                      <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                      <span className="overflow-hidden text-ellipsis text-xs whitespace-nowrap">
                         {option.name}
                       </span>
                     </div>
