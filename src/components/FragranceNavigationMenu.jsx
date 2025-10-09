@@ -721,7 +721,7 @@ const FragranceNavigationMenu = () => {
               href="/sale"
               className="text-xs font-medium text-white hover:text-white focus:text-white active:text-white !bg-transparent !hover:bg-transparent !focus:bg-transparent !active:bg-transparent px-4 py-2"
             >
-              Sale
+              News
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>

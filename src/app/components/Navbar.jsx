@@ -26,7 +26,6 @@ import Link from "next/link";
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const [showNavMenu, setShowNavMenu] = useState(true);
   const { defaultCountryCode, updateUserLocation, userLocation } = useShop();
   const { selectedCountry, updateCountry } = useCountry();
@@ -34,17 +33,11 @@ const Navbar = () => {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (initialized) {
-      console.log("Navbar - User state:", {
-        user,
-        isAuthenticated: isAuthenticated(),
-      });
-    }
-  }, [user, initialized, isAuthenticated]);
+    console.log("Navbar - User state:", {
+      user,
+      isAuthenticated: isAuthenticated(),
+    });
+  }, [user, isAuthenticated]);
 
   const handleCountryChange = (country) => {
     updateUserLocation(country);
@@ -53,26 +46,19 @@ const Navbar = () => {
       name: country.name,
     });
 
-    toast.success(`Location Updated to ${country.name} (${country.currencies?.[0] || "AED"})`, {
-      duration: 3000,
-    });
+    toast.success(
+      `Location Updated to ${country.name} (${
+        country.currencies?.[0] || "AED"
+      })`,
+      {
+        duration: 3000,
+      }
+    );
   };
-
-  const navlinks = [
-    { link: "National Day Offers", to: "/national-day" },
-    { link: "New Arrivals", to: "/new" },
-    { link: "Men's Fragrances", to: "/men" },
-    { link: "Women's Fragrances", to: "/women" },
-    { link: "Brands", to: "/brands" },
-    { link: "Collections", to: "/collections" },
-    { link: "Sale", to: "/sale" },
-    { link: "About Us", to: "/about" },
-    { link: "Contact", to: "/contact" },
-  ];
 
   const getUserAvatarElement = () => {
     if (!user) {
-      return <User2 className="w-4 h-4 font-light" />;
+      return <User2 className="w-5 h-5 font-light" />;
     }
     if (user.photoURL) {
       return (
@@ -98,10 +84,8 @@ const Navbar = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (currentScrollY < lastScrollY.current) {
-        // Scrolling up
         setShowNavMenu(true);
-      } else if (currentScrollY > lastScrollY.current) {
-        // Scrolling down
+      } else if (currentScrollY.current > lastScrollY.current) {
         setShowNavMenu(false);
       }
       lastScrollY.current = currentScrollY;
@@ -112,29 +96,11 @@ const Navbar = () => {
     };
   }, []);
 
-  if (!isClient || !initialized) {
-    return (
-      <div className="fixed w-full z-50">
-        <div className="hidden md:flex flex-col bg-black text-white gap-5 px-4 py-5">
-          <div className="md:grid grid-cols-3 items-center justify-between">
-            <div></div>
-            <Link href="/" className="flex items-center justify-center">
-              <Image className="w-30" src={FA_logo} alt="Brand_logo" />
-            </Link>
-            <div className="flex items-center justify-end gap-5 !pr-5">
-              <div className="w-4 h-4"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
       {/* Desktop Navbar */}
       <div className="hidden md:flex flex-col text-white fixed z-50 w-full">
-        <div className="md:grid grid-cols-3 px-4 py-5 bg-black items-center justify-between z-30">
+        <div className="md:grid grid-cols-3 px-4 py-3 bg-black items-center justify-between z-30 h-16">
           {/* Country Selector */}
           <div className="flex items-center justify-start">
             <CountryDropdown
@@ -146,7 +112,14 @@ const Navbar = () => {
           </div>
           {/* Logo */}
           <Link href="/" className="flex items-center justify-center">
-            <Image className="w-30" src={FA_logo} alt="Brand_logo" />
+            <Image
+              className="w-6"
+              width={24}
+              height={24}
+              src={FA_logo}
+              alt="Brand_logo"
+              priority
+            />
           </Link>
           {/* Right Side: Search, Bag, Profile */}
           <div className="flex items-center justify-end gap-5 !pr-5">
@@ -154,17 +127,17 @@ const Navbar = () => {
               variant="ghost"
               size="sm"
               onClick={() => setIsSearchOpen(true)}
-              className="hover:text-red-500 hover:bg-transparent cursor-pointer group transition-colors"
+              className="hover:text-red-500 hover:bg-transparent cursor-pointer group transition-colors p-2 h-8"
             >
               <SearchIcon className="w-4 h-4 group-hover:w-5" />
               <span className="ml-1 font-light text-xs">Search</span>
             </Button>
-            <Link href="/bag" className="flex items-center">
+            <Link href="/bag" className="flex items-center p-2">
               <ShoppingBag className="w-4 h-4 font-light" />
             </Link>
             <Link
               href={user ? "/profile" : "/auth"}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 p-2"
               title={
                 user
                   ? `Go to ${getUserDisplayName()}'s profile`
@@ -176,25 +149,14 @@ const Navbar = () => {
           </div>
         </div>
         {/* Nav Links - Using FragranceNavigationMenu */}
-        <motion.div
-          className="flex items-center justify-center bg-black/80 !p-2 backdrop-blur-3xl"
-          initial={false}
-          animate={showNavMenu ? { opacity: 1, y: 0 } : { opacity: 0, y: -100 }}
-          transition={{ duration: 0.3, ease: [0.8, 0, 0, 0.8] }}
-          style={{
-            position: "relative",
-            zIndex: 40,
-            willChange: "opacity, transform",
-            pointerEvents: showNavMenu ? "auto" : "none",
-          }}
-        >
+        <motion.div className="flex items-center justify-center bg-black/90 !p-2 backdrop-blur-3xl h-12">
           <FragranceNavigationMenu />
         </motion.div>
       </div>
 
       {/* Mobile Navbar */}
-      <div className="md:hidden bg-black/30 backdrop-blur-2xl text-white fixed z-50 !py-4 w-full">
-        <div className="grid grid-cols-3 items-center justify-between">
+      <div className="md:hidden bg-black/90 backdrop-blur-2xl text-white fixed z-50 !py-3 w-full h-16">
+        <div className="grid grid-cols-3 items-center justify-between h-full">
           <div className="flex items-center justify-start">
             <CountryDropdown
               placeholder="Select country"
@@ -204,15 +166,22 @@ const Navbar = () => {
             />
           </div>
           <Link href="/" className="flex items-center justify-center">
-            <Image className="w-25" src={FA_logo} alt="Brand_logo" />
+            <Image
+              className="w-6"
+              width={24}
+              height={24}
+              src={FA_logo}
+              alt="Brand_logo"
+              priority
+            />
           </Link>
           <div className="flex items-center justify-end gap-5 !pr-5">
-            <Link href="/bag" className="flex items-center">
-              <ShoppingBag className="w-4 h-4 font-light" />
+            <Link href="/bag" className="flex items-center p-2">
+              <ShoppingBag className="w-5 h-5 font-light" />
             </Link>
             <Link
               href={user ? "/profile" : "/auth"}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 p-2"
               title={
                 user
                   ? `Go to ${getUserDisplayName()}'s profile`

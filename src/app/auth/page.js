@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/input-otp";
 import { FA_logo_dark } from "../assets/images/images";
 import { useAuth } from "../context/AuthContext";
+import Link from "next/link";
 
 // Small input styles for shadcn inputs
 const inputClass =
-  "w-full rounded-md border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-200 transition";
+  "w-full rounded-md  border border-gray-200 px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-200 transition";
 
 const AuthPage = () => {
   const { login, register, requestOtp, resetPassword, confirmPasswordReset } =
@@ -156,15 +157,17 @@ const AuthPage = () => {
             : handleReset
         }
       >
-        <Image
-          src={FA_logo_dark}
-          width={48}
-          height={48}
-          alt="Home of Fragrance"
-          className="mb-3"
-        />
-        <h1 className="text-lg font-bold text-center text-black mb-2">
-          {mode === "login" && "Welcome back"}
+        <Link href={'/'}>
+          <Image
+            src={FA_logo_dark}
+            width={10}
+            height={10}
+            alt="Home of Fragrance"
+            className="mb-3 w-6"
+          />
+        </Link>
+        <h1 className="text-sm font-bold text-center text-black mb-2">
+          {mode === "login" && "Welcome back to Home Of Fragrances"}
           {mode === "register" && "Create your account"}
           {mode === "verify" && "Verify your email"}
           {mode === "forgot" && "Forgot password"}
@@ -341,7 +344,7 @@ const AuthPage = () => {
         </Button>
 
         {/* Terms/Privacy */}
-        <span className="text-xs text-gray-400 text-center mt-2">
+        <span className="text-sm  text-gray-400 text-center mt-2">
           By continuing, you agree to our{" "}
           <a href="/terms" className="underline">
             Terms
@@ -354,7 +357,7 @@ const AuthPage = () => {
         </span>
 
         {/* Switch modes */}
-        <div className="mt-2 text-center text-xs text-gray-500">
+        <div className="mt-2 text-center text-sm  text-gray-500">
           {mode === "login" && (
             <>
               <span>Don&apos;t have an account? </span>
