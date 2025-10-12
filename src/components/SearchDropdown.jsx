@@ -124,7 +124,7 @@ const SearchDropdown = ({ isOpen, onClose }) => {
           </div>
         </div>
         {/* Mobile view */}
-        <div className="fixed inset-0 bg-black/90  text-white backdrop-blur-3xl z-50 flex flex-col !py-20 !px-4 !rounded-none !shadow-none md:hidden">
+        <div className="fixed inset-0 bg-black/90 text-white backdrop-blur-3xl z-50 flex flex-col !py-20 !px-4 !rounded-none !shadow-none md:hidden">
           {/* Header */}
           <div className="flex items-center justify-end mb-4">
             <button onClick={onClose} className="p-2">

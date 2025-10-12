@@ -65,10 +65,13 @@ export default function HomePage() {
           alt=""
           className="w-full h-full object-fill"
         />
-        <div className=" absolute top-10 ">
-          <Link href="/" className="flex flex-col items-center justify-center font-extrabold text-3xl gap-2">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-full">
+          <Link
+            href="/"
+            className="flex flex-col items-center justify-center font-extrabold text-3xl gap-2 text-center"
+          >
             <Image
-              className="w-5"
+              className="w-8"
               width={100}
               height={100}
               src={FA_logo_dark}

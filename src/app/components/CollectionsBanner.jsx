@@ -29,7 +29,7 @@ const CollectionsBanner = () => {
   ];
 
   return (
-    <section className="py-16 px-[5%] bg-white">
+    <section className="pt-10 px-[5%] bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12">
