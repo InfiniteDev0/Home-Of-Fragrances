@@ -10,6 +10,10 @@ import CollectionsBanner from "./components/CollectionsBanner";
 import SeasonalFragrances from "./components/SeasonalFragrances";
 import SplashScreen from "@/components/SplashScreen";
 import Gifts from "./components/Gifts";
+import Footer from "./components/Footer";
+import Image from "next/image";
+import Link from "next/link";
+import { FA_logo_dark } from "./assets/images/images";
 
 export default function HomePage() {
   const [showSplash, setShowSplash] = useState(true);
@@ -48,10 +52,33 @@ export default function HomePage() {
       <Hero />
       <NewArrivals />
       <SeasonalFragrances />
-      <CollectionsBanner/>
-      <FeaturedCategories/>
-      <MiddleEasternFragrances/>
-      <Gifts/>
+      <CollectionsBanner />
+      <FeaturedCategories />
+      <MiddleEasternFragrances />
+      <Gifts />
+      <div className=" hidden md:flex md:!pt-20">
+        <Footer />
+      </div>
+      <div className="md:hidden flex relative h-[30vh]">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1747850336872-449f7973d6c0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHdoaXRlJTIwc2FuZCUyMGJnfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600"
+          alt=""
+          className="w-full h-full object-fill"
+        />
+        <div className=" absolute top-10 left-20">
+          <Link href="/" className="flex flex-col items-center justify-center font-extrabold text-xl gap-2">
+            <Image
+              className="w-5"
+              width={100}
+              height={100}
+              src={FA_logo_dark}
+              alt="Brand_logo"
+              priority
+            />
+            HOME OF FRAGRANCES
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

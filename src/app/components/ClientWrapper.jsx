@@ -78,9 +78,7 @@ const ClientWrapper = ({ children }) => {
           {!hideNavbar && <Navbar />}
           <main className={hideNavbar ? "" : ""}>
             {children}
-            <div className="md:!pt-20">
-              <Footer />
-            </div>
+            
           </main>
         </ShopProvider>
       </CountryProvider>

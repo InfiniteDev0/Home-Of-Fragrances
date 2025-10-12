@@ -55,33 +55,8 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [showMobileNav, setShowMobileNav] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const pathname = usePathname();
-  const scrollTimeoutRef = React.useRef();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-
-      // Only show nav if not at the very top
-      if (window.scrollY > 0) {
-        setShowMobileNav(true);
-        // Hide nav after 600ms of no scroll
-        clearTimeout(scrollTimeoutRef.current);
-        scrollTimeoutRef.current = setTimeout(() => {
-          setShowMobileNav(false);
-        }, 600);
-      } else {
-        setShowMobileNav(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(scrollTimeoutRef.current);
-    };
-  }, []);
 
   // framer-motion variants for the two bars
   const topBarVariants = {
@@ -241,121 +216,116 @@ const Navbar = () => {
         onClose={() => setIsSearchOpen(false)}
       />
 
-      {/* Mobile Navbar: only show while scrolling and not at top */}
-      <AnimatePresence>
-        {showMobileNav && (
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 60 }}
-            transition={{ duration: 0.32, ease: "easeInOut" }}
-            className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 bottom-0 left-0 w-full rounded-t-md h-[8vh] md:hidden"
-          >
-            <Link
-              href={"/"}
-              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-            >
-              Home
-              <AnimatePresence mode="wait">
-                {activeKey === "Home" && (
-                  <motion.div
-                    key="home-icon"
-                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    transition={{ duration: 0.28, ease: "easeInOut" }}
-                    className="w-2"
-                  >
-                    <Image
-                      width={100}
-                      height={100}
-                      src={FA_logo}
-                      alt="Brand_logo"
-                      priority
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Link>
-            <Link
-              href={"/shop"}
-              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-            >
-              Shop
-              <AnimatePresence mode="wait">
-                {activeKey === "Shop" && (
-                  <motion.div
-                    key="shop-icon"
-                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    transition={{ duration: 0.28, ease: "easeInOut" }}
-                  >
-                    <Sparkle className="w-3 h-3" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Link>
-            <Link
-              href={"/new"}
-              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-            >
-              New
-              <AnimatePresence mode="wait">
-                {activeKey === "New" && (
-                  <motion.div
-                    key="new-icon"
-                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    transition={{ duration: 0.28, ease: "easeInOut" }}
-                  >
-                    <Flame className="w-3 h-3" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Link>
-            <Link
-              href={"/profile"}
-              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-            >
-              Profile
-              <AnimatePresence mode="wait">
-                {activeKey === "Profile" && (
-                  <motion.div
-                    key="profile-icon"
-                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    transition={{ duration: 0.28, ease: "easeInOut" }}
-                  >
-                    <UserRound className="w-3 h-3" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Link>
-            <Link
-              href={"/cart"}
-              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-            >
-              Cart
-              <AnimatePresence mode="wait">
-                {activeKey === "Cart" && (
-                  <motion.div
-                    key="cart-icon"
-                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                    transition={{ duration: 0.28, ease: "easeInOut" }}
-                  >
-                    <Handbag className="w-3 h-3" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile Navbar: always show at bottom */}
+      <motion.div
+        initial={false}
+        animate={{ opacity: 1, y: 0 }}
+        exit={false}
+        className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 bottom-0 left-0 w-full rounded-t-md h-[8vh] md:hidden"
+      >
+        <Link
+          href={"/"}
+          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+        >
+          Home
+          <AnimatePresence mode="wait">
+            {activeKey === "Home" && (
+              <motion.div
+                key="home-icon"
+                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                transition={{ duration: 0.28, ease: "easeInOut" }}
+                className="w-2"
+              >
+                <Image
+                  width={100}
+                  height={100}
+                  src={FA_logo}
+                  alt="Brand_logo"
+                  priority
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Link>
+        <Link
+          href={"/shop"}
+          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+        >
+          Shop
+          <AnimatePresence mode="wait">
+            {activeKey === "Shop" && (
+              <motion.div
+                key="shop-icon"
+                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                transition={{ duration: 0.28, ease: "easeInOut" }}
+              >
+                <Sparkle className="w-3 h-3" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Link>
+        <Link
+          href={"/new"}
+          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+        >
+          New
+          <AnimatePresence mode="wait">
+            {activeKey === "New" && (
+              <motion.div
+                key="new-icon"
+                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                transition={{ duration: 0.28, ease: "easeInOut" }}
+              >
+                <Flame className="w-3 h-3" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Link>
+        <Link
+          href={"/profile"}
+          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+        >
+          Profile
+          <AnimatePresence mode="wait">
+            {activeKey === "Profile" && (
+              <motion.div
+                key="profile-icon"
+                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                transition={{ duration: 0.28, ease: "easeInOut" }}
+              >
+                <UserRound className="w-3 h-3" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Link>
+        <Link
+          href={"/cart"}
+          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+        >
+          Cart
+          <AnimatePresence mode="wait">
+            {activeKey === "Cart" && (
+              <motion.div
+                key="cart-icon"
+                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                transition={{ duration: 0.28, ease: "easeInOut" }}
+              >
+                <Handbag className="w-3 h-3" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </Link>
+      </motion.div>
     </div>
   );
 };
