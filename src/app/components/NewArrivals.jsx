@@ -7,7 +7,7 @@ const NewArrivals = () => {
   const products = [
     {
       id: 1,
-      name: "Louis Vuitton's Imagination",
+      name: "LV Imagination",
       brand: "Louis Vuitton",
       image:
         "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-imagination---LP0226_PM2_Front%20view.png?wid=1090&hei=1090",
@@ -21,7 +21,7 @@ const NewArrivals = () => {
     },
     {
       id: 2,
-      name: "Louis Vuitton's Imagination",
+      name: "LV Imagination",
       brand: "Louis Vuitton",
       image:
         "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-imagination---LP0226_PM2_Front%20view.png?wid=1090&hei=1090",
@@ -35,13 +35,13 @@ const NewArrivals = () => {
     },
     {
       id: 3,
-      name: "Louis Vuitton's Sun Song",
+      name: "Lv Sun Song",
       brand: "Louis Vuitton",
       image:
         "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-sun-song--LP0427_PM1_Interior%20view.png?wid=490&hei=490",
       price: "920",
       rating: 4.9,
-      description: "Radiant Solar Fragrance / 100ml",
+      description: "Radiant Solar Scent / 100ml",
       brandDescription:
         "Luxury French fashion house renowned for exceptional craftsmanship and timeless elegance",
       brandLogo:
@@ -49,7 +49,7 @@ const NewArrivals = () => {
     },
     {
       id: 4,
-      name: "Louis vuitton's Pacific Chill",
+      name: "Lv Pacific Chill",
       brand: "Fragrance World",
       image:
         "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-pacific-chill---LP0326_PM2_Front%20view.png?wid=1090&hei=1090",
@@ -77,7 +77,7 @@ const NewArrivals = () => {
   ];
   return (
     <div className="min-h-screen font-outfit w-full">
-      <div className="max-w-7xl mx-auto flex flex-col gap-5 py-6 md:py-10 px-4 sm:px-6 ">
+      <div className="max-w-7xl mx-auto flex flex-col gap-5 py-6 md:py-10 px-2 ">
         {/* Header */}
         <h1 className="md:text-base underline font-semibold flex items-center gap-2">
           New & Hot

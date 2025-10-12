@@ -6,7 +6,7 @@ import { FA_logo_dark } from "../assets/images/images";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 text-black font-outfit text-sm">
+    <footer className="bg-white border-t border-gray-400 text-black font-outfit text-sm">
       <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Help */}
         <div>

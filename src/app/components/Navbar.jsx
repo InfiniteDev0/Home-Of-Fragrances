@@ -55,15 +55,32 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const pathname = usePathname();
+  const scrollTimeoutRef = React.useRef();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
+
+      // Only show nav if not at the very top
+      if (window.scrollY > 0) {
+        setShowMobileNav(true);
+        // Hide nav after 600ms of no scroll
+        clearTimeout(scrollTimeoutRef.current);
+        scrollTimeoutRef.current = setTimeout(() => {
+          setShowMobileNav(false);
+        }, 600);
+      } else {
+        setShowMobileNav(false);
+      }
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeoutRef.current);
+    };
   }, []);
 
   // framer-motion variants for the two bars
@@ -203,36 +220,18 @@ const Navbar = () => {
               priority
             />
           </Link>
-          {/* Mobile menu toggle (no SideMenu rendered) */}
-          <button
-            id="mobile-menu-toggler-mobile"
-            aria-label="Navigation Menu"
-            aria-expanded={false}
-            className="lv-mega-menu__burger lv-button lv-header-icon-burger flex items-center gap-2 cursor-pointer"
-            disabled
+          {/* mobile search */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsSearchOpen(true)}
+            className="hover:text-gray-500 hover:bg-transparent cursor-pointer group transition-colors p-2 h-8"
           >
-            <span className="lv-header-icon-burger__bars">
-              <span className="relative w-6 h-4 flex items-center justify-center">
-                <motion.span
-                  className="absolute left-0 right-0 h-[1.5px] rounded-full bg-white"
-                  variants={topBarVariants}
-                  initial="closed"
-                  animate="closed"
-                  transition={barTransition}
-                  style={{ transformOrigin: "50% 50%" }}
-                />
-                <motion.span
-                  className="absolute left-0 right-0 h-[1.5px] rounded-full bg-white"
-                  variants={bottomBarVariants}
-                  initial="closed"
-                  animate="closed"
-                  transition={barTransition}
-                  style={{ transformOrigin: "50% 50%" }}
-                />
-              </span>
+            <SearchIcon className="w-4 h-4 group-hover:w-5" />
+            <span className="ml-1  text-xs font-semibold tracking-wider">
+              Search
             </span>
-            <span className="ml-2 text-xs">Menu</span>
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -242,110 +241,121 @@ const Navbar = () => {
         onClose={() => setIsSearchOpen(false)}
       />
 
-      <div className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 top-[91%] left-[2px] w-[98%] rounded-md h-[8vh] md:hidden">
-        <Link
-          href={"/"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-        >
-          Home
-          <AnimatePresence mode="wait">
-            {activeKey === "Home" && (
-              <motion.div
-                key="home-icon"
-                initial={{ opacity: 0, y: 20, rotate: -45 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, y: 20, rotate: -45 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="w-2"
-              >
-                <Image
-                  width={100}
-                  height={100}
-                  src={FA_logo}
-                  alt="Brand_logo"
-                  priority
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Link>
-        <Link
-          href={"/shop"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-        >
-          Shop
-          <AnimatePresence mode="wait">
-            {activeKey === "Shop" && (
-              <motion.div
-                key="shop-icon"
-                initial={{ opacity: 0, y: 20, rotate: -45 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, y: 20, rotate: -45 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                <Sparkle className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Link>
-        <Link
-          href={"/new"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-        >
-          New
-          <AnimatePresence mode="wait">
-            {activeKey === "New" && (
-              <motion.div
-                key="new-icon"
-                initial={{ opacity: 0, y: 20, rotate: -45 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, y: 20, rotate: -45 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                <Flame className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Link>
-        <Link
-          href={"/profile"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-        >
-          Profile
-          <AnimatePresence mode="wait">
-            {activeKey === "Profile" && (
-              <motion.div
-                key="profile-icon"
-                initial={{ opacity: 0, y: 20, rotate: -45 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, y: 20, rotate: -45 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                <UserRound className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Link>
-        <Link
-          href={"/cart"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
-        >
-          Cart
-          <AnimatePresence mode="wait">
-            {activeKey === "Cart" && (
-              <motion.div
-                key="cart-icon"
-                initial={{ opacity: 0, y: 20, rotate: -45 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, y: 20, rotate: -45 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                <Handbag className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Link>
-      </div>
+      {/* Mobile Navbar: only show while scrolling and not at top */}
+      <AnimatePresence>
+        {showMobileNav && (
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 60 }}
+            transition={{ duration: 0.32, ease: "easeInOut" }}
+            className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 bottom-0 left-0 w-full rounded-t-md h-[8vh] md:hidden"
+          >
+            <Link
+              href={"/"}
+              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+            >
+              Home
+              <AnimatePresence mode="wait">
+                {activeKey === "Home" && (
+                  <motion.div
+                    key="home-icon"
+                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    transition={{ duration: 0.28, ease: "easeInOut" }}
+                    className="w-2"
+                  >
+                    <Image
+                      width={100}
+                      height={100}
+                      src={FA_logo}
+                      alt="Brand_logo"
+                      priority
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Link>
+            <Link
+              href={"/shop"}
+              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+            >
+              Shop
+              <AnimatePresence mode="wait">
+                {activeKey === "Shop" && (
+                  <motion.div
+                    key="shop-icon"
+                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    transition={{ duration: 0.28, ease: "easeInOut" }}
+                  >
+                    <Sparkle className="w-3 h-3" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Link>
+            <Link
+              href={"/new"}
+              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+            >
+              New
+              <AnimatePresence mode="wait">
+                {activeKey === "New" && (
+                  <motion.div
+                    key="new-icon"
+                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    transition={{ duration: 0.28, ease: "easeInOut" }}
+                  >
+                    <Flame className="w-3 h-3" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Link>
+            <Link
+              href={"/profile"}
+              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+            >
+              Profile
+              <AnimatePresence mode="wait">
+                {activeKey === "Profile" && (
+                  <motion.div
+                    key="profile-icon"
+                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    transition={{ duration: 0.28, ease: "easeInOut" }}
+                  >
+                    <UserRound className="w-3 h-3" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Link>
+            <Link
+              href={"/cart"}
+              className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+            >
+              Cart
+              <AnimatePresence mode="wait">
+                {activeKey === "Cart" && (
+                  <motion.div
+                    key="cart-icon"
+                    initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                    transition={{ duration: 0.28, ease: "easeInOut" }}
+                  >
+                    <Handbag className="w-3 h-3" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

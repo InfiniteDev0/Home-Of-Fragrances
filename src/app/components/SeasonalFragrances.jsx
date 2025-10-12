@@ -114,21 +114,21 @@ const SeasonalFragrances = () => {
     },
     {
       id: 2,
-      name: "Louis Vuitton's Afternoon Swim",
+      name: "Afternoon Swim",
       brand: "Louis Vuitton",
       image:
         "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-afternoon-swim--LP0313_PM2_Front%20view.png?wid=490&hei=490",
     },
     {
       id: 3,
-      name: "Louis Vuitton's Sun Song",
+      name: "Sun Song",
       brand: "Louis Vuitton",
       image:
         "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-sun-song--LP0427_PM1_Interior%20view.png?wid=490&hei=490",
     },
     {
       id: 4,
-      name: "Louis vuitton's Pacific Chill",
+      name: "Pacific Chill",
       brand: "Fragrance World",
       image:
         "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-pacific-chill---LP0326_PM2_Front%20view.png?wid=1090&hei=1090",

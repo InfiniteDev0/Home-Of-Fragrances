@@ -75,7 +75,7 @@ const MiddleEasternFragrances = () => {
 
   return (
     <section className="py-20  bg-white">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto flex flex-col gap-5 py-6 md:py-10 px-2 ">
         {/* Section Header */}
         <div className="text-center mb-12">
           <div className="text-center">
@@ -100,36 +100,36 @@ const MiddleEasternFragrances = () => {
               viewport={{ once: true }}
               className="flex flex-col gap-3 p-2 md:p-4"
             >
-                {/* Image Container */}
-                <div className="relative w-full dark:bg-white aspect-[3/4] overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                </div>
+              {/* Image Container */}
+              <div className="relative w-full dark:bg-white aspect-[3/4] overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
 
-                {/* Product Info */}
-                <div className="flex flex-col gap-2">
-                  <h1 className="text-xs sm:text-sm font-semibold line-clamp-2 leading-tight">
-                    {product.name}
-                  </h1>
-                  <p className="text-xs">{product.description}</p>
-                  <p className="flex items-center justify-between font-semibold">
-                    {product.price}$
-                    <span className="flex items-center text-[12px] gap-1">
-                      <Star className="w-4 h-4 text-yellow-500" />
-                      {product.rating}
-                    </span>
-                  </p>
-                  <Button
-                    className={
-                      "font-semibold tracking-wider text-xs rounded-none"
-                    }
-                  >
-                    View item
-                  </Button>
-                </div>
+              {/* Product Info */}
+              <div className="flex flex-col gap-2">
+                <h1 className="text-xs sm:text-sm font-semibold line-clamp-2 leading-tight">
+                  {product.name}
+                </h1>
+                <p className="text-xs">{product.description}</p>
+                <p className="flex items-center justify-between font-semibold">
+                  {product.price}$
+                  <span className="flex items-center text-[12px] gap-1">
+                    <Star className="w-4 h-4 text-yellow-500" />
+                    {product.rating}
+                  </span>
+                </p>
+                <Button
+                  className={
+                    "font-semibold tracking-wider text-xs rounded-none"
+                  }
+                >
+                  View item
+                </Button>
+              </div>
             </motion.div>
           ))}
         </div>
