@@ -81,6 +81,9 @@ const Navbar = () => {
   };
   const activeKey = getActiveKey();
 
+  // Add this helper
+  const hideMobileTopNav = pathname.startsWith("/shop");
+
   return (
     <div>
       {/* Desktop Navbar: keep very high z so the toggle stays above SideMenu */}
@@ -177,32 +180,34 @@ const Navbar = () => {
       )}
 
       {/* Mobile Navbar: no SideMenu for mobile */}
-      <div className="md:hidden bg-black/90 backdrop-blur-2xl text-white fixed z-[300] !py-3 w-full h-16">
-        <div className="flex items-center justify-between w-full h-full px-4">
-          <Link href="/" className="flex items-center justify-center">
-            <Image
-              className="w-6"
-              width={100}
-              height={100}
-              src={FA_logo}
-              alt="Brand_logo"
-              priority
-            />
-          </Link>
-          {/* mobile search */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsSearchOpen(true)}
-            className="hover:text-gray-500 hover:bg-transparent cursor-pointer group transition-colors p-2 h-8"
-          >
-            <SearchIcon className="w-4 h-4 group-hover:w-5" />
-            <span className="ml-1  text-xs font-semibold tracking-wider">
-              Search
-            </span>
-          </Button>
+      {!hideMobileTopNav && (
+        <div className="md:hidden bg-black/90 backdrop-blur-2xl text-white fixed z-[300] !py-3 w-full h-16">
+          <div className="flex items-center justify-between w-full h-full px-4">
+            <Link href="/" className="flex items-center justify-center">
+              <Image
+                className="w-6"
+                width={100}
+                height={100}
+                src={FA_logo}
+                alt="Brand_logo"
+                priority
+              />
+            </Link>
+            {/* mobile search */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsSearchOpen(true)}
+              className="hover:text-gray-500 hover:bg-transparent cursor-pointer group transition-colors p-2 h-8"
+            >
+              <SearchIcon className="w-4 h-4 group-hover:w-5" />
+              <span className="ml-1  text-xs font-semibold tracking-wider">
+                Search
+              </span>
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Search Dropdown */}
       <SearchDropdown

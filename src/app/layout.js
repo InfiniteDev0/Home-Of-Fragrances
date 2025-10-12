@@ -2,7 +2,6 @@ import { Outfit, Poppins } from "next/font/google";
 import "./globals.css";
 import ClientWrapper from "./components/ClientWrapper";
 
-
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
@@ -23,7 +22,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} ${poppins.variable} ${outfit.className} antialiased`}>
+      <body
+        className={`${outfit.variable} ${poppins.variable} ${outfit.className} antialiased`}
+      >
         <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
