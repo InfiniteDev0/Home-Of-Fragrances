@@ -85,13 +85,7 @@ const Navbar = () => {
     <div>
       {/* Desktop Navbar: keep very high z so the toggle stays above SideMenu */}
       <div
-        className={`hidden md:flex flex-col fixed z-[300] w-full transition-all duration-500 text-black
-          ${
-            scrolled
-              ? "bg-white border-b border-gray-300"
-              : "bg-transparent border-b-0"
-          }
-          hover:bg-white`}
+        className={`hidden md:flex flex-col fixed z-[300] w-full transition-all duration-500 text-black bg-white border-b border-gray-400`}
       >
         <div className="md:grid grid-cols-3 px-4 py-3 items-center justify-between z-30 h-18">
           {/* menu bar (uses the same structure as your snippet) */}
@@ -221,109 +215,124 @@ const Navbar = () => {
         initial={false}
         animate={{ opacity: 1, y: 0 }}
         exit={false}
-        className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 bottom-0 left-0 w-full rounded-t-md h-[8vh] md:hidden"
+        className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 -bottom-2 left-0 w-full h-[10vh] md:hidden"
       >
         <Link
           href={"/"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
         >
           Home
-          <AnimatePresence mode="wait">
-            {activeKey === "Home" && (
-              <motion.div
-                key="home-icon"
-                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                transition={{ duration: 0.28, ease: "easeInOut" }}
-                className="w-2"
-              >
-                <Image
-                  width={100}
-                  height={100}
-                  src={FA_logo}
-                  alt="Brand_logo"
-                  priority
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="relative w-full h-5 flex justify-center items-start">
+            <AnimatePresence mode="wait">
+              {activeKey === "Home" && (
+                <motion.div
+                  key="home-icon"
+                  initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
+                  className="absolute left-1/2 -translate-x-1/2"
+                >
+                  <Image
+                    width={100}
+                    height={100}
+                    src={FA_logo}
+                    alt="Brand_logo"
+                    priority
+                    className="w-2"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </Link>
         <Link
           href={"/shop"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
         >
           Shop
-          <AnimatePresence mode="wait">
-            {activeKey === "Shop" && (
-              <motion.div
-                key="shop-icon"
-                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                transition={{ duration: 0.28, ease: "easeInOut" }}
-              >
-                <Sparkle className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="relative w-full h-5 flex justify-center items-start">
+            <AnimatePresence mode="wait">
+              {activeKey === "Shop" && (
+                <motion.div
+                  key="shop-icon"
+                  initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
+                  className="absolute left-1/2 -translate-x-1/2"
+                >
+                  <Sparkle className="w-3 h-3" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </Link>
         <Link
           href={"/new"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
         >
           New
-          <AnimatePresence mode="wait">
-            {activeKey === "New" && (
-              <motion.div
-                key="new-icon"
-                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                transition={{ duration: 0.28, ease: "easeInOut" }}
-              >
-                <Flame className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="relative w-full h-5 flex justify-center items-start">
+            <AnimatePresence mode="wait">
+              {activeKey === "New" && (
+                <motion.div
+                  key="new-icon"
+                  initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
+                  className="absolute left-1/2 -translate-x-1/2"
+                >
+                  <Flame className="w-3 h-3" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </Link>
         <Link
           href={"/profile"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
         >
           Profile
-          <AnimatePresence mode="wait">
-            {activeKey === "Profile" && (
-              <motion.div
-                key="profile-icon"
-                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                transition={{ duration: 0.28, ease: "easeInOut" }}
-              >
-                <UserRound className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="relative w-full h-5 flex justify-center items-start">
+            <AnimatePresence mode="wait">
+              {activeKey === "Profile" && (
+                <motion.div
+                  key="profile-icon"
+                  initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
+                  className="absolute left-1/2 -translate-x-1/2"
+                >
+                  <UserRound className="w-3 h-3" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </Link>
         <Link
           href={"/cart"}
-          className="flex flex-col items-center gap-1 leading-4 text-xs font-semibold tracking-widest"
+          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
         >
           Cart
-          <AnimatePresence mode="wait">
-            {activeKey === "Cart" && (
-              <motion.div
-                key="cart-icon"
-                initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
-                transition={{ duration: 0.28, ease: "easeInOut" }}
-              >
-                <Handbag className="w-3 h-3" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="relative w-full h-5 flex justify-center items-start">
+            <AnimatePresence mode="wait">
+              {activeKey === "Cart" && (
+                <motion.div
+                  key="cart-icon"
+                  initial={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 10, rotate: -20 }}
+                  transition={{ duration: 0.28, ease: "easeInOut" }}
+                  className="absolute left-1/2 -translate-x-1/2"
+                >
+                  <Handbag className="w-3 h-3" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </Link>
       </motion.div>
     </div>

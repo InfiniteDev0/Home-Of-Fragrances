@@ -25,7 +25,7 @@ const FeaturedCategories = () => {
         },
         {
           id: 2,
-          name: "Louis Vuitton's Imagination",
+          name: "LV Imagination",
           brand: "Louis Vuitton",
           image:
             "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-imagination---LP0226_PM2_Front%20view.png?wid=1090&hei=1090",
@@ -39,13 +39,13 @@ const FeaturedCategories = () => {
         },
         {
           id: 3,
-          name: "Louis Vuitton's Sun Song",
+          name: "LV Sun Song",
           brand: "Louis Vuitton",
           image:
             "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-sun-song--LP0427_PM1_Interior%20view.png?wid=490&hei=490",
           price: "920",
           rating: 4.9,
-          description: "Radiant Solar Fragrance / 100ml",
+          description: "Radiant Solar Scents / 100ml",
           brandDescription:
             "Luxury French fashion house renowned for exceptional craftsmanship and timeless elegance",
           brandLogo:
@@ -53,7 +53,7 @@ const FeaturedCategories = () => {
         },
         {
           id: 4,
-          name: "Louis vuitton's Pacific Chill",
+          name: "LV Pacific Chill",
           brand: "Fragrance World",
           image:
             "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-pacific-chill---LP0326_PM2_Front%20view.png?wid=1090&hei=1090",
