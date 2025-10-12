@@ -1,23 +1,108 @@
 "use client";
-import React, { useState } from "react";
-import { useShop } from "../context/ShopContext";
-import { Bell, Check, FlameIcon, Star, Sun } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { ChevronUp, Dot, ListFilter, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import confetti from "canvas-confetti";
 
 const SeasonalFragrances = () => {
   const [activeBtn, setActivate] = useState(0);
+  const [selectedSort, setSelectedSort] = useState("popular");
 
   // reminderState maps productId -> 'idle' | 'animating' | 'done' | 'unsetting'
   const [reminderState, setReminderState] = useState({});
 
   const filterButtons = [
-    { icon: "🌶️", name: "Coming Soon" },
-    { icon: "💖", name: "Everyone's Favorite" },
-    { icon: "🎁", name: "Best Giftables" },
-    { icon: "☝️", name: "Top 10 Brands" },
-    { icon: "👉", name: "Top 10 Perfumes" },
+    { icon: "☀️", name: "Summer" },
+    { icon: "❄️", name: "Winter" },
+    { icon: "🌻", name: "Spring" },
+    { icon: "🍁", name: "Autumn" },
+    { icon: "👉", name: "All seasons" },
   ];
+
+  const dropdownOptions = [
+    { label: "Best Selling", value: "BestSeller" },
+    { label: "Popular", value: "popular" },
+    { label: "Most Liked", value: "mostLiked" },
+  ];
+
+  const Dropdown = ({ selectedSort, onSortChange }) => {
+    const [open, setOpen] = useState(false);
+    const ref = useRef();
+
+    useEffect(() => {
+      const handleClick = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+      };
+      document.addEventListener("mousedown", handleClick);
+      return () => document.removeEventListener("mousedown", handleClick);
+    }, []);
+
+    return (
+      <div className="relative" ref={ref}>
+        <button
+          className="flex items-center justify-between w-[120px] px-4 py-2 bg-white border border-gray-300 hover:bg-gray-100 cursor-pointer rounded-md text-xs font-semibold text-black focus:outline-none transition-all duration-200"
+          onClick={() => setOpen((o) => !o)}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+        >
+          <span>
+            {dropdownOptions.find((opt) => opt.value === selectedSort)?.label}
+          </span>
+          <ChevronUp className={`w-4 h-4 ${open === false ? "" : "rotate-180"} transition-rotate duration-200`}/>
+        </button>
+        {open && (
+          <div className="absolute left-0 mt-2 w-[220px] bg-white rounded-md border border-gray-300 p-2 z-20 animate-dropdown">
+            <ul className="py-2">
+              {dropdownOptions.map((opt) => (
+                <li key={opt.value}>
+                  <button
+                    className={`flex w-full items-center px-4 py-2 text-[11px] text-black rounded-sm transition-all duration-150
+                      ${
+                        selectedSort === opt.value
+                          ? "bg-gray-100 font-semibold"
+                          : "hover:bg-gray-50 font-semibold"
+                      }
+                    `}
+                    onClick={() => {
+                      onSortChange(opt.value);
+                      setOpen(false);
+                    }}
+                    aria-selected={selectedSort === opt.value}
+                  >
+                    <span>{opt.label}</span>
+                    {selectedSort === opt.value && (
+                      <svg
+                        className="ml-auto w-3 h-3 text-black"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <style>{`
+          .animate-dropdown {
+            animation: dropdown-fade-in 0.18s cubic-bezier(.8,0,0,.8);
+          }
+          @keyframes dropdown-fade-in {
+            from { opacity: 0; transform: translateY(-8px);}
+            to { opacity: 1; transform: translateY(0);}
+          }
+        `}</style>
+      </div>
+    );
+  };
 
   const products = [
     {
@@ -162,14 +247,49 @@ const SeasonalFragrances = () => {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto flex flex-col gap-5 py-6 md:py-10 px-4 sm:px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-9 py-6 md:py-10 px-4 sm:px-6 lg:px-10">
         {/* Header */}
-        <h1>Seasonal fragrances</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col items-center gap-1 max-w-5xl mx-auto outfit">
+          <h1 className="text-2xl font-semibold">Seasonal fragrances</h1>
+          <p className="font-semibold text-center text-sm text-gray-400">
+            Best fragrances suited for the each season  , packed with longevity
+            and strong projection.
+          </p>
+        </div>
+        {/* <div className="flex items-center gap-2">
           <Sun className=" text-white !p-2 bg-yellow-500 rounded-full w-8 h-8" />
           <h1 className="md:text-base underline font-semibold flex items-center gap-2">
             Summer Fragrances
           </h1>
+        </div> */}
+
+        <div className="hidden md:flex items-center justify-between w-full gap-5">
+          <Dropdown
+            selectedSort={selectedSort}
+            onSortChange={setSelectedSort}
+          />
+
+          <div className="flex items-center gap-3">
+            {filterButtons.map((item, index) => (
+              <Button
+                key={index}
+                onClick={() => setActivate(index)}
+                className={`bg-transparent font-semibold text-[12px] flex items-center gap-1 !px-4 h-[5vh] transition-all duration-500 cursor-pointer rounded-full text-black ${
+                  activeBtn === index
+                    ? "bg-black text-white hover:bg-black hover:text-white"
+                    : "bg-black text-white hover:text-white hover:bg-gray-800"
+                }`}
+              >
+                <Dot className={`${activeBtn === index ? "" : "hidden"}`} />
+                <span className="mr-1">{item.icon}</span>
+                <span>{item.name}</span>
+              </Button>
+            ))}
+          </div>
+
+          <div className="flex items-center text-xs font-semibold gap-2 !p-2 !px-4 rounded-3xl border border-gray-300 w-fit cursor-pointer hover:bg-gray-100 transition-colors">
+            <ListFilter className="w-3 h-3" /> Filters
+          </div>
         </div>
 
         {/* Filter Buttons - Horizontal scroll on mobile */}
@@ -217,7 +337,7 @@ const SeasonalFragrances = () => {
 
         {/* Load More Button - Hidden on mobile if needed */}
         <div className="flex justify-center mt-8">
-          <Button className="border bg-transparent text-black border-gray-700 hover:bg-gray-200 px-6 md:px-8 py-2 md:py-3 rounded-full text-sm ">
+          <Button className="border bg-transparent text-black border-gray-700 font-semibold tracking-wider hover:bg-gray-200 px-6 md:px-8 py-2 md:py-3 rounded-full text-sm ">
             View seasonal fragrances
           </Button>
         </div>

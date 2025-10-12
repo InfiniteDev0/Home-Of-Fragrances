@@ -8,6 +8,7 @@ import ShopProvider from "../context/ShopContext";
 import { AuthProvider } from "../context/AuthContext";
 import { CountryProvider } from "../../context/CountryContext";
 import WelcomeModal from "../../components/WelcomeModal";
+import Footer from "./Footer";
 
 const ClientWrapper = ({ children }) => {
   const pathname = usePathname();
@@ -70,12 +71,17 @@ const ClientWrapper = ({ children }) => {
     <AuthProvider>
       <CountryProvider>
         <ShopProvider>
-          <Toaster position="top-right" richColors theme="dark"  />
+          <Toaster position="top-right" richColors theme="dark" />
           {!hideNavbar && showCookieConsent && countrySelected && (
             <CookieConsent onConsentChange={handleConsentChange} />
           )}
           {!hideNavbar && <Navbar />}
-          <main className={hideNavbar ? "" : ""}>{children}</main>
+          <main className={hideNavbar ? "" : ""}>
+            {children}
+            <div className="!pt-20">
+              <Footer />
+            </div>
+          </main>
         </ShopProvider>
       </CountryProvider>
     </AuthProvider>

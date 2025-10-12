@@ -122,6 +122,10 @@ const ShopProvider = ({ children }) => {
     return formatPriceUtil(price, currency);
   };
 
+
+  const [menuText, setMenuText] = useState("Menu");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const value = {
     // Location state
     userLocation,
@@ -139,6 +143,10 @@ const ShopProvider = ({ children }) => {
 
     // Utility methods
     clearUserData: clearLocationData,
+    menuText,
+    setMenuText,
+    isMenuOpen,
+    setIsMenuOpen
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

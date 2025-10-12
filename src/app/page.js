@@ -9,6 +9,7 @@ import NewArrivals from "./components/NewArrivals";
 import CollectionsBanner from "./components/CollectionsBanner";
 import SeasonalFragrances from "./components/SeasonalFragrances";
 import SplashScreen from "@/components/SplashScreen";
+import Gifts from "./components/Gifts";
 
 export default function HomePage() {
   const [showSplash, setShowSplash] = useState(true);
@@ -46,13 +47,11 @@ export default function HomePage() {
     <div className="w-full">
       <Hero />
       <NewArrivals />
-      {/* seasonal fragrances */}
       <SeasonalFragrances />
-      {/* designers */}
-      {/* niche */}
-      {/* men */}
-      {/* women */}
-      {/* featured bbrands */}
+      <CollectionsBanner/>
+      <FeaturedCategories/>
+      <MiddleEasternFragrances/>
+      <Gifts/>
     </div>
   );
 }
