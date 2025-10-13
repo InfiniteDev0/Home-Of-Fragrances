@@ -20,15 +20,15 @@ const Shoppage = () => {
         className="flex md:hidden w-full h-screen bg-cover bg-center filter-blur-xl"
         style={{
           backgroundImage:
-            "url('https://www.beautybase.com/images/afnan-turathi-electric-eau-de-parfum-90ml-spray-p83863-38241_image.jpg')",
+            "url('https://i0.wp.com/assets.beautyhub.co.ke/wp-content/uploads/2025/02/14111042/lattafa-his-confession-eau-de-parfum-100ml-1.jpg?fit=1150%2C1150&ssl=1')",
         }}
       >
         {/* ...add any mobile shop content here... */}
         <div className="!p-6 w-full h-full text-white flex flex-col justify-between gap-[5rem]">
           <div className="flex justify-end w-full">
-            <Settings className="text-gray-800 " />
+            <Settings className="" />
           </div>
-          <div className="!px-4  !py-4 flex flex-col items-center gap-6">
+          <div className="!px-4 text-xl !py-4 flex flex-col items-center gap-6">
             {/* navlinks */}
             <Link href={"/"}>
               <p className="font-semibold tracking-wider hover:underline w-fit">
@@ -86,13 +86,13 @@ const Shoppage = () => {
               </p>
             </Link>
           </div>
-          <form className="flex mb-20 items-center gap-4">
+          <form className="flex mb-20 items-center  gap-4">
             <Input
               ref={inputRef}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search for Product"
-              className="outline-none h-[6vh] text-lg placeholder:text-[14px] px-6 py-4  bg-neutral-950 border border-gray-400 rounded-md  !shadow-none"
+              className="outline-none h-[6vh] text-lg placeholder:text-[14px] px-6 py-4  bg-white/10 backdrop-blur-3xl border border-gray-200 rounded-md placeholder:text-white  !shadow-none"
             />
             <Button
               type="submit"

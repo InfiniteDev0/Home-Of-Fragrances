@@ -34,7 +34,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Text in bottom left corner */}
-      <div className="absolute bottom-0 md:bottom-50 md:left-90 left-0 z-10 text-white p-6 text-left md:text-center w-full max-w-xl">
+      <div className="absolute bottom-0 md:bottom-50 md:left-90 left-0 z-10 text-white px-6 text-left md:text-center w-full max-w-xl">
         <h1 className="text-[16px] tracking-wide">Rayhaan Tropical vibes</h1>
 
         <p className="mb-8 text-xl font-semibold tracking-wider max-w-2xl mx-auto">
