@@ -157,7 +157,7 @@ const FeaturedCategories = () => {
     },
   ];
   return (
-    <div className="max-w-7xl mx-auto flex flex-col gap-[5rem]   px-2  ">
+    <div className="max-w-7xl mx-auto flex flex-col gap-[5rem] px-2  ">
       {categories.map((category, idx) => {
         return (
           <div key={idx} className="flex flex-col gap-5 items-center">

@@ -18,7 +18,8 @@ const NewArrivals = () => {
       name: "LV Imagination",
       brand: "Louis Vuitton",
       image:
-        "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-imagination---LP0226_PM2_Front%20view.png?wid=1090&hei=1090",
+        "https://whitewall.art/wp-content/uploads/2021/04/lv-beach-s4-596v3-e1617314981342.jpeg", // image for small screen sizes.
+      // "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-imagination---LP0226_PM2_Front%20view.png?wid=1090&hei=1090", image for large screen sizes
       price: "920",
       rating: 4.8,
       description: "Fresh Aquatic Escape / 100ml",
@@ -32,7 +33,8 @@ const NewArrivals = () => {
       name: "LV Imagination",
       brand: "Louis Vuitton",
       image:
-        "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-imagination---LP0226_PM2_Front%20view.png?wid=1090&hei=1090",
+        "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fwp-content%2Fblogs.dir%2F6%2Ffiles%2F2021%2F06%2Flouis-vuitton-imagination-mens-perfume-fragrance-1.jpg?q=75&w=800&cbr=1&fit=max",
+      // "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-imagination---LP0226_PM2_Front%20view.png?wid=1090&hei=1090",
       price: "920",
       rating: 4.8,
       description: "Fresh Aquatic Escape / 100ml",
@@ -46,7 +48,8 @@ const NewArrivals = () => {
       name: "Lv Sun Song",
       brand: "Louis Vuitton",
       image:
-        "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-sun-song--LP0427_PM1_Interior%20view.png?wid=490&hei=490",
+        "https://i0.wp.com/scentadvice.com/wp-content/uploads/2025/07/hawas-turning-into-the-fast-furious-franchise-megamare-v0-s4ii4y32kfff1-1.webp?fit=640%2C834&ssl=1",
+      // "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-sun-song--LP0427_PM1_Interior%20view.png?wid=490&hei=490",
       price: "920",
       rating: 4.9,
       description: "Radiant Solar Scent / 100ml",
@@ -60,7 +63,8 @@ const NewArrivals = () => {
       name: "Lv Pacific Chill",
       brand: "Fragrance World",
       image:
-        "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-pacific-chill---LP0326_PM2_Front%20view.png?wid=1090&hei=1090",
+        "https://elitegen.singtao.ca/wp-content/uploads/elitegen2020/2023/05/PACIFIC-CHILL-PR-VISUAL-1-scaled.jpg",
+      // "https://me.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-pacific-chill---LP0326_PM2_Front%20view.png?wid=1090&hei=1090",
       price: "180",
       rating: 4.7,
       description: "Cool Ocean Breeze / 100ml",
@@ -74,7 +78,8 @@ const NewArrivals = () => {
       name: "Odyssey Toffee Coffee",
       brand: "Armaf",
       image:
-        "https://armaf.com/cdn/shop/files/GS-OdysseyLimoni_PhotoGrid.pngDisplayingGS-OdysseyLimoni_PhotoGrid.png._10.png?v=1757027475&width=533",
+        "https://perfumesdemarca.com.mx/cdn/shop/files/odyssey-Toffee-Coffee-de-armaf-edp-100-ml-para-hombre-perfumes-originales-perfumes-de-marca-perfumes-arabes-8.jpg?v=1758325288",
+      // "https://armaf.com/cdn/shop/files/GS-OdysseyLimoni_PhotoGrid.pngDisplayingGS-OdysseyLimoni_PhotoGrid.png._10.png?v=1757027475&width=533",
       price: "120",
       rating: 4.6,
       description: "Rich Gourmand Delight / 100ml",
@@ -92,7 +97,7 @@ const NewArrivals = () => {
   };
 
   return (
-    <div className="min-h-screen font-outfit w-full">
+    <div className="md:min-h-screen font-outfit w-full">
       <div className="max-w-7xl mx-auto hidden md:flex flex-col gap-5 py-6 md:py-10 px-8 ">
         {/* Header */}
         <h1 className="md:text-base underline font-semibold flex items-center gap-2">
@@ -155,7 +160,7 @@ const NewArrivals = () => {
         </Link>
       </div>
       {/* mobile version */}
-      <div className="max-w-7xl mx-auto md:hidden min-h-screen flex flex-col gap-5 bg-zinc-950 text-white py-6 px-4 ">
+      <div className="max-w-7xl mx-auto md:hidden min-h-fit flex flex-col gap-5 bg-zinc-950 text-white py-6 px-4 ">
         <h1 className="md:text-base font-semibold flex items-center gap-2">
           New & Hot
           <svg
@@ -191,7 +196,7 @@ const NewArrivals = () => {
             <CarouselContent>
               {products.map((product, index) => (
                 <CarouselItem key={index}>
-                  <div className="relative bg-white w-sce h-[400px] rounded-xl overflow-hidden">
+                  <div className="relative bg-white w-sceen h-[400px] rounded-xl overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -211,14 +216,26 @@ const NewArrivals = () => {
             {products.map((_, idx) => (
               <div
                 key={idx}
-                className={`rounded-full transition-all duration-200 ${
-                  activeIndex === idx
-                    ? "w-4 h-2 bg-white"
-                    : "w-2 h-2 bg-white/40"
-                }`}
+                className={`rounded-full transition-all duration-200 bg-white`}
+                style={{
+                  width: activeIndex === idx ? "16px" : "8px",
+                  height: "8px",
+                  opacity: activeIndex === idx ? 1 : 0.4,
+                  background: "white",
+                }}
               ></div>
             ))}
           </div>
+          {/* Load More Button */}
+          <Link
+            href={"/new"}
+            alt="link to new arrivals"
+            className="flex justify-center mt-8"
+          >
+            <Button className="border font-semibold tracking-wider border-gray-700 bg-white text-black active:scale-105 cursor-pointer px-6 md:px-8 py-2 md:py-3 rounded-full text-xs">
+              View All New Arrivals
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
