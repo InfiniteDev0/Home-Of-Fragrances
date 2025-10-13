@@ -247,7 +247,7 @@ const SeasonalFragrances = () => {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto flex flex-col gap-9 bg-black text-white md:text-black md:bg-white py-10 px-4 sm:px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-9 text-black bg-white py-10 px-4 sm:px-6 lg:px-10">
         {/* Header */}
         <div className="flex flex-col items-center gap-1 max-w-5xl mx-auto outfit">
           <h1 className="text-2xl font-semibold">Seasonal fragrances</h1>
@@ -302,7 +302,7 @@ const SeasonalFragrances = () => {
             return (
               <div key={product.id} className="flex flex-col gap-3  md:p-4">
                 {/* Image Container */}
-                <div className="relative bg-white w-full aspect-[3/4] overflow-hidden md:rounded-lg">
+                <div className="relative bg-gray-100 border w-full aspect-[3/4] overflow-hidden md:rounded-lg">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -337,7 +337,7 @@ const SeasonalFragrances = () => {
 
         {/* Load More Button - Hidden on mobile if needed */}
         <div className="flex justify-center mt-8">
-          <Button className="border bg-white text-black md:bg-transparent md:text-black border-gray-700 font-semibold tracking-wider hover:bg-gray-200 px-6 md:px-8 py-2 md:py-3 rounded-full text-sm ">
+          <Button className="border bg-transparent text-black border-gray-700 font-semibold tracking-wider hover:bg-gray-200 px-6 md:px-8 py-2 md:py-3 rounded-full text-sm ">
             View seasonal fragrances
           </Button>
         </div>

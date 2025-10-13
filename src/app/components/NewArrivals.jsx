@@ -160,7 +160,7 @@ const NewArrivals = () => {
         </Link>
       </div>
       {/* mobile version */}
-      <div className="max-w-7xl mx-auto md:hidden min-h-fit flex flex-col gap-5 bg-zinc-950 text-white py-6 px-4 ">
+      <div className="max-w-7xl mx-auto md:hidden min-h-fit flex flex-col gap-5  py-6 px-4 ">
         <h1 className="md:text-base font-semibold flex items-center gap-2">
           New & Hot
           <svg
@@ -216,12 +216,12 @@ const NewArrivals = () => {
             {products.map((_, idx) => (
               <div
                 key={idx}
-                className={`rounded-full transition-all duration-200 bg-white`}
+                className={`rounded-full transition-all duration-200 bg-black`}
                 style={{
                   width: activeIndex === idx ? "16px" : "8px",
                   height: "8px",
                   opacity: activeIndex === idx ? 1 : 0.4,
-                  background: "white",
+                  background: "black",
                 }}
               ></div>
             ))}
