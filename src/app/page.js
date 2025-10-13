@@ -59,7 +59,7 @@ export default function HomePage() {
       <div className=" hidden md:flex md:!pt-20">
         <Footer />
       </div>
-      <div className="md:hidden flex relative h-[30vh] w-full">
+      <div className="md:hidden flex relative h-[36vh] w-full">
         <img
           src="https://plus.unsplash.com/premium_photo-1747850336872-449f7973d6c0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHdoaXRlJTIwc2FuZCUyMGJnfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600"
           alt=""

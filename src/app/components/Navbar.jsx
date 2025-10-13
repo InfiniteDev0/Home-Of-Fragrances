@@ -181,7 +181,7 @@ const Navbar = () => {
 
       {/* Mobile Navbar: no SideMenu for mobile */}
       {!hideMobileTopNav && (
-        <div className="md:hidden bg-black/90 backdrop-blur-2xl text-white fixed z-[300] !py-3 w-full h-16">
+        <div className="md:hidden bg-black/80 backdrop-blur-3xl text-white fixed z-[300] !py-3 w-full h-16">
           <div className="flex items-center justify-between w-full h-full px-4">
             <Link href="/" className="flex items-center justify-center">
               <Image
@@ -220,11 +220,11 @@ const Navbar = () => {
         initial={false}
         animate={{ opacity: 1, y: 0 }}
         exit={false}
-        className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 -bottom-2 left-0 w-full h-[10vh] md:hidden"
+        className="fixed outfit z-[50] text-white bg-black flex items-center justify-between !px-5 -bottom-2 left-0 w-full h-[13vh] md:hidden"
       >
         <Link
           href={"/"}
-          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
+          className="flex flex-col items-center gap-1 leading-4 text-[14px] font-semibold tracking-widest relative"
         >
           Home
           <div className="relative w-full h-5 flex justify-center items-start">
@@ -244,7 +244,7 @@ const Navbar = () => {
                     src={FA_logo}
                     alt="Brand_logo"
                     priority
-                    className="w-2"
+                    className="w-[10px]"
                   />
                 </motion.div>
               )}
@@ -253,7 +253,7 @@ const Navbar = () => {
         </Link>
         <Link
           href={"/shop"}
-          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
+          className="flex flex-col items-center gap-1 leading-4 text-[14px] font-semibold tracking-widest relative"
         >
           Shop
           <div className="relative w-full h-5 flex justify-center items-start">
@@ -267,7 +267,7 @@ const Navbar = () => {
                   transition={{ duration: 0.28, ease: "easeInOut" }}
                   className="absolute left-1/2 -translate-x-1/2"
                 >
-                  <Sparkle className="w-3 h-3" />
+                  <Sparkle className="w-4 h-4" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -275,7 +275,7 @@ const Navbar = () => {
         </Link>
         <Link
           href={"/new"}
-          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
+          className="flex flex-col items-center gap-1 leading-4 text-[14px] font-semibold tracking-widest relative"
         >
           New
           <div className="relative w-full h-5 flex justify-center items-start">
@@ -289,7 +289,7 @@ const Navbar = () => {
                   transition={{ duration: 0.28, ease: "easeInOut" }}
                   className="absolute left-1/2 -translate-x-1/2"
                 >
-                  <Flame className="w-3 h-3" />
+                  <Flame className="w-4 h-4" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -297,7 +297,7 @@ const Navbar = () => {
         </Link>
         <Link
           href={"/profile"}
-          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
+          className="flex flex-col items-center gap-1 leading-4 text-[14px] font-semibold tracking-widest relative"
         >
           Profile
           <div className="relative w-full h-5 flex justify-center items-start">
@@ -311,7 +311,7 @@ const Navbar = () => {
                   transition={{ duration: 0.28, ease: "easeInOut" }}
                   className="absolute left-1/2 -translate-x-1/2"
                 >
-                  <UserRound className="w-3 h-3" />
+                  <UserRound className="w-4 h-4" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -319,7 +319,7 @@ const Navbar = () => {
         </Link>
         <Link
           href={"/cart"}
-          className="flex flex-col items-center gap-1 leading-4 text-[13px] font-semibold tracking-widest relative"
+          className="flex flex-col items-center gap-1 leading-4 text-[14px] font-semibold tracking-widest relative"
         >
           Cart
           <div className="relative w-full h-5 flex justify-center items-start">
@@ -333,7 +333,7 @@ const Navbar = () => {
                   transition={{ duration: 0.28, ease: "easeInOut" }}
                   className="absolute left-1/2 -translate-x-1/2"
                 >
-                  <Handbag className="w-3 h-3" />
+                  <Handbag className="w-4 h-4" />
                 </motion.div>
               )}
             </AnimatePresence>

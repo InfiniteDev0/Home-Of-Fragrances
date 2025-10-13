@@ -138,7 +138,7 @@ const SearchDropdown = ({ isOpen, onClose }) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search for product"
-              className="border bg-white text-black placeholder:text-black border-gray-300 text-base px-4 py-2 placeholder:font-semibold !rounded-md h-[5vh] !shadow-none"
+              className="border bg-white text-black  placeholder:text-black border-gray-300  px-4 py-2  !rounded-md h-[7vh] placeholder:text-[16px] !shadow-none"
             />
             <Button
               type="submit"
