@@ -95,7 +95,7 @@ const SearchDropdown = ({ isOpen, onClose }) => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for Fragrances , News , Brand , Notes"
-                className="border border-gray-300 text-lg px-6 py-4 !rounded-none !shadow-none"
+                className="border-none outline-none text-lg px-6 py-4 !rounded-none !shadow-none"
               />
               <Button
                 type="submit"
