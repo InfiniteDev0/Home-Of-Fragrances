@@ -458,7 +458,7 @@ const Shoppage = () => {
         return (
           <div>
             {perfumes.map((item, index) => {
-              return <div></div>;
+              return <div key={index}></div>;
             })}
           </div>
         );
