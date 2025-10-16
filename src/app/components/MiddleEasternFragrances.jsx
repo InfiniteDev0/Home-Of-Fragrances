@@ -74,7 +74,7 @@ const MiddleEasternFragrances = () => {
   ];
 
   return (
-    <section className="py-20  bg-white">
+    <section className="py-14  bg-white">
       <div className="max-w-7xl mx-auto flex flex-col gap-5 py-6 md:py-10 px-2 ">
         {/* Section Header */}
         <div className="text-center mb-12">

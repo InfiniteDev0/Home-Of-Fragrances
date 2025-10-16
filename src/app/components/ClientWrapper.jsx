@@ -71,14 +71,14 @@ const ClientWrapper = ({ children }) => {
     <AuthProvider>
       <CountryProvider>
         <ShopProvider>
-          <Toaster position="top-right" richColors theme="dark" />
+          <Toaster position="top-right"  theme="dark" />
           {!hideNavbar && showCookieConsent && countrySelected && (
             <CookieConsent onConsentChange={handleConsentChange} />
           )}
           {!hideNavbar && <Navbar />}
           <main className={hideNavbar ? "" : ""}>
             {children}
-            
+        
           </main>
         </ShopProvider>
       </CountryProvider>

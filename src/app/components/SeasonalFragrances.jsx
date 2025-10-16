@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChevronUp, Dot, ListFilter, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import confetti from "canvas-confetti";
+import Dropdown from "./Dropdown";
 
 const SeasonalFragrances = () => {
   const [activeBtn, setActivate] = useState(0);
@@ -19,90 +20,9 @@ const SeasonalFragrances = () => {
     { icon: "👉", name: "All seasons" },
   ];
 
-  const dropdownOptions = [
-    { label: "Best Selling", value: "BestSeller" },
-    { label: "Popular", value: "popular" },
-    { label: "Most Liked", value: "mostLiked" },
-  ];
+;
 
-  const Dropdown = ({ selectedSort, onSortChange }) => {
-    const [open, setOpen] = useState(false);
-    const ref = useRef();
-
-    useEffect(() => {
-      const handleClick = (e) => {
-        if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-      };
-      document.addEventListener("mousedown", handleClick);
-      return () => document.removeEventListener("mousedown", handleClick);
-    }, []);
-
-    return (
-      <div className="relative" ref={ref}>
-        <button
-          className="flex items-center justify-between w-[120px] px-4 py-2 bg-white border border-gray-300 hover:bg-gray-100 cursor-pointer rounded-md text-xs font-semibold text-black focus:outline-none transition-all duration-200"
-          onClick={() => setOpen((o) => !o)}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-        >
-          <span>
-            {dropdownOptions.find((opt) => opt.value === selectedSort)?.label}
-          </span>
-          <ChevronUp className={`w-4 h-4 ${open === false ? "" : "rotate-180"} transition-rotate duration-200`}/>
-        </button>
-        {open && (
-          <div className="absolute left-0 mt-2 w-[220px] bg-white rounded-md border border-gray-300 p-2 z-20 animate-dropdown">
-            <ul className="py-2">
-              {dropdownOptions.map((opt) => (
-                <li key={opt.value}>
-                  <button
-                    className={`flex w-full items-center px-4 py-2 text-[11px] text-black rounded-sm transition-all duration-150
-                      ${
-                        selectedSort === opt.value
-                          ? "bg-gray-100 font-semibold"
-                          : "hover:bg-gray-50 font-semibold"
-                      }
-                    `}
-                    onClick={() => {
-                      onSortChange(opt.value);
-                      setOpen(false);
-                    }}
-                    aria-selected={selectedSort === opt.value}
-                  >
-                    <span>{opt.label}</span>
-                    {selectedSort === opt.value && (
-                      <svg
-                        className="ml-auto w-3 h-3 text-black"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={3}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <style>{`
-          .animate-dropdown {
-            animation: dropdown-fade-in 0.18s cubic-bezier(.8,0,0,.8);
-          }
-          @keyframes dropdown-fade-in {
-            from { opacity: 0; transform: translateY(-8px);}
-            to { opacity: 1; transform: translateY(0);}
-          }
-        `}</style>
-      </div>
-    );
-  };
+ 
 
   const products = [
     {
@@ -146,64 +66,64 @@ const SeasonalFragrances = () => {
     return reminderState[id] || "idle";
   };
 
-  const fireConfetti = () => {
-    // a couple of bursts for a nice effect
-    confetti({
-      particleCount: 40,
-      spread: 70,
-      startVelocity: 45,
-      origin: { y: 0.4 },
-    });
-    confetti({
-      particleCount: 30,
-      spread: 120,
-      startVelocity: 30,
-      scalar: 0.8,
-      origin: { y: 0.6 },
-    });
-  };
+  // const fireConfetti = () => {
+  //   // a couple of bursts for a nice effect
+  //   confetti({
+  //     particleCount: 40,
+  //     spread: 70,
+  //     startVelocity: 45,
+  //     origin: { y: 0.4 },
+  //   });
+  //   confetti({
+  //     particleCount: 30,
+  //     spread: 120,
+  //     startVelocity: 30,
+  //     scalar: 0.8,
+  //     origin: { y: 0.6 },
+  //   });
+  // };
 
-  const handleRemindClick = (productId) => {
-    const state = getState(productId);
-    if (state === "idle") {
-      // set animating state (setting reminder)
-      setReminderState((prev) => ({ ...prev, [productId]: "animating" }));
+  // const handleRemindClick = (productId) => {
+  //   const state = getState(productId);
+  //   if (state === "idle") {
+  //     // set animating state (setting reminder)
+  //     setReminderState((prev) => ({ ...prev, [productId]: "animating" }));
 
-      // fire confetti for setting reminder
-      fireConfetti();
+  //     // fire confetti for setting reminder
+  //     fireConfetti();
 
-      // fallback: if animationend doesn't fire, ensure we set to done after buffer
-      setTimeout(() => {
-        setReminderState((prev) => {
-          if (prev[productId] === "animating") {
-            return { ...prev, [productId]: "done" };
-          }
-          return prev;
-        });
-      }, 1400); // equals 3 * 0.36s + buffer
-    } else if (state === "done") {
-      // user wants to unset reminder: no confetti, play a short bell-ring animation
-      setReminderState((prev) => ({ ...prev, [productId]: "unsetting" }));
-      // onAnimationEnd for 'bell-ring' will set it back to 'idle'
-    }
-    // if state === 'animating' or 'unsetting' ignore clicks
-  };
+  //     // fallback: if animationend doesn't fire, ensure we set to done after buffer
+  //     setTimeout(() => {
+  //       setReminderState((prev) => {
+  //         if (prev[productId] === "animating") {
+  //           return { ...prev, [productId]: "done" };
+  //         }
+  //         return prev;
+  //       });
+  //     }, 1400); // equals 3 * 0.36s + buffer
+  //   } else if (state === "done") {
+  //     // user wants to unset reminder: no confetti, play a short bell-ring animation
+  //     setReminderState((prev) => ({ ...prev, [productId]: "unsetting" }));
+  //     // onAnimationEnd for 'bell-ring' will set it back to 'idle'
+  //   }
+  //   // if state === 'animating' or 'unsetting' ignore clicks
+  // };
 
-  const handleAnimationEnd = (productId, e) => {
-    // Determine which animation ended by name
-    const animName =
-      e?.animationName || (e?.nativeEvent && e.nativeEvent.animationName);
-    if (animName === "bell-shake") {
-      // finishing the set-reminder animation -> done
-      setReminderState((prev) => ({ ...prev, [productId]: "done" }));
-    } else if (animName === "bell-ring") {
-      // finishing the unset animation -> idle
-      setReminderState((prev) => ({ ...prev, [productId]: "idle" }));
-    }
-  };
+  // const handleAnimationEnd = (productId, e) => {
+  //   // Determine which animation ended by name
+  //   const animName =
+  //     e?.animationName || (e?.nativeEvent && e.nativeEvent.animationName);
+  //   if (animName === "bell-shake") {
+  //     // finishing the set-reminder animation -> done
+  //     setReminderState((prev) => ({ ...prev, [productId]: "done" }));
+  //   } else if (animName === "bell-ring") {
+  //     // finishing the unset animation -> idle
+  //     setReminderState((prev) => ({ ...prev, [productId]: "idle" }));
+  //   }
+  // };
 
   return (
-    <div className="min-h-screen font-outfit w-full">
+    <div className="min-h-fit font-outfit w-full">
       {/* Inline styles for the bell animations kept local to the component */}
       <style>{`
         @keyframes bell-shake {

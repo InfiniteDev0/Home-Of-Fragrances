@@ -88,7 +88,7 @@ const Navbar = () => {
     <div>
       {/* Desktop Navbar: keep very high z so the toggle stays above SideMenu */}
       <div
-        className={`hidden md:flex flex-col fixed z-[300] w-full transition-all duration-500 text-black bg-white border-b border-gray-400`}
+        className={`hidden md:flex flex-col fixed z-[300] w-full transition-all duration-500 text-black bg-white border-b border-gray-200`}
       >
         <div className="md:grid grid-cols-3 px-4 py-3 items-center justify-between z-30 h-18">
           {/* menu bar (uses the same structure as your snippet) */}

@@ -97,7 +97,7 @@ const NewArrivals = () => {
   };
 
   return (
-    <div className="md:min-h-screen font-outfit w-full">
+    <div className="md:min-h-fit font-outfit w-full">
       <div className="max-w-7xl mx-auto hidden md:flex flex-col gap-5 py-6 md:py-10 px-8 ">
         {/* Header */}
         <h1 className="md:text-base underline font-semibold flex items-center gap-2">

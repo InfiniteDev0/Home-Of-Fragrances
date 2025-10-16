@@ -25,7 +25,7 @@ const Gifts = () => {
       },
     ];
   return (
-    <div className="max-w-7xl mx-auto flex flex-col gap-5 py-6  px-2 ">
+    <div className="max-w-7xl mx-auto flex flex-col gap-5   px-2 ">
       <div className="flex flex-col gap-5 items-center">
         <div className="text-center">
           <p className="text-xl font-semibold text-gray-700">Gift Choices</p>
