@@ -11,7 +11,15 @@ import {
 
 export const ShopContext = createContext();
 
-const ShopProvider = ({ children }) => {
+export const useShop = () => {
+  const context = useContext(ShopContext);
+  if (!context) {
+    throw new Error("useShop must be used within a ShopProvider");
+  }
+  return context;
+};
+
+export const ShopProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [userCurrency, setUserCurrency] = useState("KES"); // Default to Kenyan Shilling
   const [isLocationLoading, setIsLocationLoading] = useState(true);
@@ -122,7 +130,6 @@ const ShopProvider = ({ children }) => {
     return formatPriceUtil(price, currency);
   };
 
-
   const [menuText, setMenuText] = useState("Menu");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -146,19 +153,12 @@ const ShopProvider = ({ children }) => {
     menuText,
     setMenuText,
     isMenuOpen,
-    setIsMenuOpen
+    setIsMenuOpen,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };
 
 // Custom hook to use shop context
-export const useShop = () => {
-  const context = useContext(ShopContext);
-  if (!context) {
-    throw new Error("useShop must be used within a ShopProvider");
-  }
-  return context;
-};
 
 export default ShopProvider;
