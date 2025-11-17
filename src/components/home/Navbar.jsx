@@ -23,11 +23,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { FA_logo, FA_logo_dark } from "../../../public/assets/images/images";
 import { Button } from "@/components/ui/button";
-import SearchDropdown from "@/components/shared/SearchDropdown";
+const SearchDropdown = dynamic(
+  () => import("@/components/shared/SearchDropdown"),
+  {
+    ssr: false, // only render on client
+    loading: () => <p className="p-2 text-sm">Loading search...</p>, // optional placeholder
+  }
+);
+
 import { useAuth } from "../../app/context/AuthContext";
 import Link from "next/link";
-import SideMenu from "./SideMenu";
+import dynamic from "next/dynamic";
+
+const SideMenu = dynamic(() => import("./SideMenu"), {
+  ssr: false, // important: ensures it’s only loaded client-side
+});
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 
 const Navbar = () => {
   // Helper: get user avatar element

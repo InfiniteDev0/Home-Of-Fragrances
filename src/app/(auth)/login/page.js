@@ -346,13 +346,13 @@ const AuthPage = () => {
         {/* Terms/Privacy */}
         <span className="text-sm  text-gray-400 text-center mt-2">
           By continuing, you agree to our{" "}
-          <a href="/terms" className="underline">
+          <Link href="/terms" className="underline">
             Terms
-          </a>{" "}
+          </Link>{" "}
           and{" "}
-          <a href="/privacy" className="underline">
+          <Link href="/privacy" className="underline">
             Privacy Policy
-          </a>
+          </Link>
           .
         </span>
 
@@ -361,7 +361,7 @@ const AuthPage = () => {
           {mode === "login" && (
             <>
               <span>Don&apos;t have an account? </span>
-              <a
+              <Link
                 href="#"
                 className="text-amber-600 font-medium underline"
                 onClick={(e) => {
@@ -370,9 +370,9 @@ const AuthPage = () => {
                 }}
               >
                 Sign up
-              </a>
+              </Link>
               <br />
-              <a
+              <Link
                 href="#"
                 className="underline"
                 onClick={(e) => {
@@ -381,13 +381,13 @@ const AuthPage = () => {
                 }}
               >
                 Forgot password?
-              </a>
+              </Link>
             </>
           )}
           {mode === "register" && (
             <>
               <span>Already have an account? </span>
-              <a
+              <Link
                 href="#"
                 className="text-amber-600 font-medium underline"
                 onClick={(e) => {
@@ -396,12 +396,12 @@ const AuthPage = () => {
                 }}
               >
                 Login
-              </a>
+              </Link>
             </>
           )}
           {mode === "forgot" && (
             <>
-              <a
+              <Link
                 href="#"
                 className="underline"
                 onClick={(e) => {
@@ -410,7 +410,7 @@ const AuthPage = () => {
                 }}
               >
                 Back to login
-              </a>
+              </Link>
             </>
           )}
         </div>

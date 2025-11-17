@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { avatar, FA_logo_dark } from "@/public/assets/images/images";
+import { FA_logo_dark } from "../../../../public/assets/images/images";
 const ProfilePage = () => {
   const { user, logout, updateUserProfile, fetchUserDetails } = useAuth();
   const router = useRouter();

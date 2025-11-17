@@ -4,6 +4,7 @@ import { ShopProvider } from "./context/ShopContext";
 import { AuthProvider } from "./context/AuthContext";
 import { CountryProvider } from "./context/CountryContext";
 import ClientWrapper from "@/components/home/ClientWrapper";
+import { Suspense } from "react";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -31,7 +32,9 @@ export default function RootLayout({ children }) {
         <ShopProvider>
           <AuthProvider>
             <CountryProvider>
-              <ClientWrapper>{children}</ClientWrapper>
+              <Suspense fallback={null}>
+                <ClientWrapper>{children}</ClientWrapper>
+              </Suspense>
             </CountryProvider>
           </AuthProvider>
         </ShopProvider>
