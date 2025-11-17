@@ -4,6 +4,7 @@ import { ShopProvider } from "./context/ShopContext";
 import { AuthProvider } from "./context/AuthContext";
 import { CountryProvider } from "./context/CountryContext";
 import ClientWrapper from "@/components/home/ClientWrapper";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
 
 const outfit = Outfit({
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${outfit.variable} ${poppins.variable} ${outfit.className} antialiased font-outfit`}
       >
+        <SpeedInsights/>
         <ShopProvider>
           <AuthProvider>
             <CountryProvider>
