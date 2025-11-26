@@ -271,7 +271,7 @@ export default function SideMenu({
                     </p>
                   </Link>
                   <Link
-                    href={"/eng-e1/homepage/Gifts"}
+                    href={"/eng-e1/homepage/sales"}
                     onClick={() => handleNavLinkClick("/eng-e1/homepage/sales")}
                   >
                     <p className="font-semibold tracking-wide hover:underline w-fit">

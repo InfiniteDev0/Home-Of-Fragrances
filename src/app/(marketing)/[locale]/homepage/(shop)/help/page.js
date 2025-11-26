@@ -35,6 +35,18 @@ const Helppage = () => {
     router.push("/eng-e1/homepage/help");
   };
 
+  useEffect(() => {
+    const hash = window.location.hash;
+
+    if (hash) {
+      const section = document.querySelector(hash);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, []);
+
+
   return (
     <div>
       <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-gray-200 flex items-center justify-between px-10 py-4">
@@ -221,7 +233,7 @@ const Helppage = () => {
                 </div>
               </div>
               {/* Contact Us */}
-              <div>
+              <div id="contact">
                 <h1 className="font-semibold text-xl flex items-center gap-2">
                   Contact Us
                 </h1>
@@ -356,14 +368,14 @@ const Helppage = () => {
               >
                 <ChevronLeft /> Back to Help Center
               </button>
-              <div className="flex flex-col gap-4">
-                <h1 className="font-semibold text-xl mb-2 flex items-center gap-2">
-                  ✅ FAQ for Home Of Fragrances
+              <div className="flex flex-col gap-2">
+                <h1 className="font-semibold text-xl poppins uppercase flex items-center gap-2">
+                   FAQ for Home Of Fragrances
                 </h1>
-                <p className="text-xs text-gray-500 font-semibold mb-4">
+                <p className="text-xs text-gray-500 font-semibold">
                   Best fragrance shop on the web
                 </p>
-                <div className="flex flex-col gap-3 text-sm">
+                <div className="flex flex-col gap-3 text-sm mt-4">
                   <Accordion
                     type="single"
                     collapsible

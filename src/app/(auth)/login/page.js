@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast, Toaster } from "sonner";
+
+import React, { useState, useEffect, useContext } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { BadgeCheckIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -15,14 +17,11 @@ import Link from "next/link";
 import { FA_logo_dark } from "../../../../public/assets/images/images";
 import { useAuth } from "@/app/context/AuthContext";
 
-// Small input styles for shadcn inputs
 const inputClass =
-  "w-full rounded-md  border border-gray-200 px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-200 transition";
+  "w-full rounded-md  border border-gray-200 px-3 py-3 text-xs  focus:outline-none focus:ring-2 focus:ring-amber-200 transition";
 
 const AuthPage = () => {
-  const { login, register, requestOtp, resetPassword, confirmPasswordReset } =
-    useAuth();
-  const [mode, setMode] = useState("login"); // "login", "register", "verify", "forgot", "reset"
+  const { login, register, mode, setMode } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -36,8 +35,15 @@ const AuthPage = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // Password policy
+  useEffect(() => {
+    const msg = searchParams?.get("message") || searchParams?.get("error");
+    if (msg === "not-authorized" || msg === "no-account") {
+      toast.error("You don't have an account. Login or create a new one.");
+    }
+  }, [searchParams]);
+
   const validatePassword = (pw) =>
     pw.length >= 8 &&
     pw.length <= 10 &&
@@ -46,101 +52,191 @@ const AuthPage = () => {
     /\d/.test(pw) &&
     /[!@#$%^&*(),.?":{}|<>]/.test(pw);
 
-  // Input handler
   const handleChange = (e) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  // Registration Step 1: request OTP
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    if (!validatePassword(form.password)) {
-      toast.error(
-        "Password must be 8–10 chars, upper/lowercase, number, special char."
+  const requestOtp = async (email) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/request-verification-otp`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }
+    );
+    if (!res.ok) {
+      const data = await res.json().catch(() => null);
+      throw new Error(data?.error || data?.message || "Failed to send OTP");
+    }
+    return true;
+  };
+
+  const sendResetCode = async (email) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/password/send-code`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }
+    );
+    if (!res.ok) {
+      const data = await res.json().catch(() => null);
+      throw new Error(
+        data?.error || data?.message || "Failed to send reset code"
       );
-      return;
     }
-    if (form.password !== form.confirmPassword) {
-      toast.error("Passwords do not match.");
-      return;
-    }
-    setLoading(true);
-    try {
-      await requestOtp(form.email);
-      toast.success("OTP sent! Check your email.");
-      setMode("verify");
-    } catch (error) {
-      toast.error(error.message || "Failed to send OTP");
-    } finally {
-      setLoading(false);
-    }
+    return true;
   };
 
-  // Registration Step 2: verify OTP and create user
-  const handleVerify = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await register(form.email, form.password, form.displayName, form.otp);
-      toast.success("Registration complete!");
-      router.push("/profile");
-    } catch (error) {
-      toast.error(error.message || "Invalid OTP");
-    } finally {
-      setLoading(false);
+  const confirmPasswordReset = async (email, code, newPassword) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/password/reset`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code, newPassword }),
+      }
+    );
+    if (!res.ok) {
+      const data = await res.json().catch(() => null);
+      throw new Error(
+        data?.error || data?.message || "Failed to reset password"
+      );
     }
+    return true;
   };
 
-  // Login
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await login(form.email, form.password);
-      toast.success("Welcome back!");
-      router.push("/profile");
-    } catch (error) {
-      toast.error(error.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleRegister = async (e) => {
+  e.preventDefault();
+  if (!validatePassword(form.password)) {
+    toast.error(
+      "Password must be 8–10 chars, upper/lowercase, number, special char."
+    );
+    return;
+  }
+  if (form.password !== form.confirmPassword) {
+    toast.error("Passwords do not match.");
+    return;
+  }
 
-  // Forgot password: request OTP
-  const handleForgot = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await resetPassword(form.email);
-      toast.success("Reset code sent!");
-      setMode("reset");
-    } catch (error) {
-      toast.error(error.message || "Failed to send code");
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  try {
+    await toast.promise(requestOtp(form.email), {
+      loading: "Sending OTP...",
+      success: "OTP sent! Check your email.",
+      error: (err) => err.message || "Failed to send OTP",
+    });
+    // ✅ only switch mode after success
+    setMode("verify");
+  } finally {
+    setLoading(false);
+  }
+};
 
-  // Reset password with OTP
-  const handleReset = async (e) => {
-    e.preventDefault();
-    if (!validatePassword(form.newPassword)) {
-      toast.error("Password must meet requirements.");
-      return;
-    }
-    setLoading(true);
-    try {
-      await confirmPasswordReset(form.email, form.resetOtp, form.newPassword);
-      toast.success("Password reset! Please login.");
-      setMode("login");
-    } catch (error) {
-      toast.error(error.message || "Failed to reset password");
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleVerify = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  try {
+    await toast.promise(
+      (async () => {
+        const reg = await register(
+          form.email,
+          form.password,
+          form.displayName,
+          form.otp
+        );
+        if (!reg || reg.success === false) {
+          throw new Error(
+            reg?.message || "Verification failed. Please try again."
+          );
+        }
 
-  // UI
+        const res = await login(form.email, form.password);
+        if (!res || res.success === false) {
+          throw new Error(res?.message || "Login after verification failed");
+        }
+
+        // ✅ only switch mode after success
+        setMode("login");
+        setTimeout(() => router.push("/myhof"), 1200);
+      })(),
+      {
+        loading: "Verifying OTP...",
+        success: "Your profile has been verified!",
+        error: (err) => err.message || "Invalid OTP",
+      }
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  try {
+    await toast.promise(
+      (async () => {
+        const res = await login(form.email, form.password);
+        if (!res || !res.success) {
+          throw new Error(res?.message || "Login failed");
+        }
+        router.push("/myhof");
+      })(),
+      {
+        loading: "Logging in...",
+        success: "Welcome back!",
+        error: (err) => err.message || "Login failed",
+      }
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleForgot = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  try {
+    await toast.promise(sendResetCode(form.email), {
+      loading: "Sending reset code...",
+      success: "Reset code sent!",
+      error: (err) => err.message || "Failed to send code",
+    });
+    // ✅ only switch mode after success
+    setMode("reset");
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleReset = async (e) => {
+  e.preventDefault();
+  if (!validatePassword(form.newPassword)) {
+    toast.error("Password must meet requirements.");
+    return;
+  }
+
+  setLoading(true);
+  try {
+    await toast.promise(
+      (async () => {
+        await confirmPasswordReset(form.email, form.resetOtp, form.newPassword);
+        // ✅ only switch mode after success
+        setMode("login");
+      })(),
+      {
+        loading: "Resetting password...",
+        success: "Password reset! Please login.",
+        error: (err) => err.message || "Failed to reset password",
+      }
+    );
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
       <form
@@ -157,13 +253,13 @@ const AuthPage = () => {
             : handleReset
         }
       >
-        <Link href={"/"}>
+        <Link href="/eng-e1/homepage">
           <Image
             src={FA_logo_dark}
-            width={10}
-            height={10}
-            alt="Home of Fragrance"
-            className="mb-3 w-6"
+            alt="Home Of Fragrances"
+            width={100}
+            height={100}
+            className="mx-auto w-5 mb-2"
           />
         </Link>
         <h1 className="text-sm font-bold text-center text-black mb-2">
@@ -212,6 +308,16 @@ const AuthPage = () => {
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
+            <Link
+              href="#"
+              className="underline text-xs font-semibold tracking-wide text-gray-600 px-2"
+              onClick={(e) => {
+                e.preventDefault();
+                setMode("forgot");
+              }}
+            >
+              Forgot password?
+            </Link>
           </div>
         )}
 
@@ -323,7 +429,6 @@ const AuthPage = () => {
           </>
         )}
 
-        {/* CONTINUE/SUBMIT BUTTON */}
         <Button
           type="submit"
           disabled={loading}
@@ -343,8 +448,7 @@ const AuthPage = () => {
             : "Reset password"}
         </Button>
 
-        {/* Terms/Privacy */}
-        <span className="text-sm  text-gray-400 text-center mt-2">
+        <span className="text-xs font-semibold tracking-wider  text-black text-center mt-2">
           By continuing, you agree to our{" "}
           <Link href="/terms" className="underline">
             Terms
@@ -356,31 +460,19 @@ const AuthPage = () => {
           .
         </span>
 
-        {/* Switch modes */}
-        <div className="mt-2 text-center text-sm  text-gray-500">
+        <div className="mt-2 text-center text-sm text-gray-500 font-semibold">
           {mode === "login" && (
             <>
               <span>Don&apos;t have an account? </span>
               <Link
                 href="#"
-                className="text-amber-600 font-medium underline"
+                className="text-red-600 font-semibold underline"
                 onClick={(e) => {
                   e.preventDefault();
                   setMode("register");
                 }}
               >
                 Sign up
-              </Link>
-              <br />
-              <Link
-                href="#"
-                className="underline"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMode("forgot");
-                }}
-              >
-                Forgot password?
               </Link>
             </>
           )}

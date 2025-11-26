@@ -19,6 +19,27 @@ body{
   display: none;
 }
 
+.mygrid{
+  display: grid;
+  grid-template-columns: 2.5fr 1.5fr;
+}
+
+.profileHeader{
+  background: #e1eec3;  
+background: -webkit-linear-gradient(to right, #f05053, #e1eec3); 
+background: linear-gradient(to right, #f05053, #e1eec3);
+}
+
+/* Example: red line like Louis Vuitton */
+#nprogress .bar {
+  background: #111; /* or your brand color */
+  height: 2px;
+  z-index: 9999;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #111, 0 0 5px #111;
+}
 
 /* The switch - the box around the slider */
 .switch {

@@ -6,6 +6,8 @@ import { CountryProvider } from "./context/CountryContext";
 import ClientWrapper from "@/components/home/ClientWrapper";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
+import { Toaster } from "sonner";
+
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -30,7 +32,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${outfit.variable} ${poppins.variable} ${outfit.className} antialiased font-outfit`}
       >
-        <SpeedInsights/>
+        <Toaster position="top-center" theme="dark" richColors  closeButton />
+        <SpeedInsights />
         <ShopProvider>
           <AuthProvider>
             <CountryProvider>
@@ -39,8 +42,9 @@ export default function RootLayout({ children }) {
               </Suspense>
             </CountryProvider>
           </AuthProvider>
-        </ShopProvider>
-      </body>
+        </ShopProvider>    
+      </body>  
     </html>
+    
   );
 }

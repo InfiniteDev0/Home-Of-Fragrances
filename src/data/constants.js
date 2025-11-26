@@ -2177,3 +2177,32 @@ export const communityPosts = [
     timestamp: "15m",
   },
 ];
+
+
+export const giftCategories = [
+  {
+    name: "Holiday Gifts",
+    img: "https://cdn.outsideonline.com/wp-content/uploads/2023/10/holiday-gift-guide-2023_s.jpg?crop=1:1&width=500&enable=upscale&quality=100",
+    link: ".gifts/occasional/holiday-gifts",
+  },
+  {
+    name: "Gifts for Her",
+    img: "https://www.riyalifestyle.com/cdn/shop/files/Riya_Women_Lifestyle_3.jpg?v=1747375218&width=3840",
+    link: "/gifts/gifts-for-her",
+  },
+  {
+    name: "Gift for Him",
+    img: "https://cdn.salla.sa/form-builder/25PX4t2DkXoDR9ZaEhQFTio6qzOEWEnsOeX9LiqY.jpg",
+    link: "/gifts/gifts-for-him",
+  },
+  {
+    name: "Brands collection Set",
+    img: "https://static.dezeen.com/uploads/2021/10/frank_gehry_louis_vuitton_perfume_bottle_design_dezeen_2364_col_hero.jpg",
+    link: "/gifts/gifts-from-brand-collections",
+  },
+  {
+    name: "Packaging Customization",
+    img: "https://images.unsplash.com/photo-1595246007497-15e0ed4b8d96?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym94JTIwcGFja2FnaW5nfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000",
+    link: "/gifts/package_customization",
+  },
+];
