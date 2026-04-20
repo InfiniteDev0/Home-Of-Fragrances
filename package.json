@@ -39,7 +39,7 @@
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.24",
-    "next": "15.5.3",
+    "next": "15.5.9",
     "nprogress": "^0.2.0",
     "react": "19.1.0",
     "react-circle-flags": "^0.0.23",
